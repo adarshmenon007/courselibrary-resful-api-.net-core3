@@ -1,3 +1,4 @@
+using AutoMapper;
 using CourseLibrary.API.DbContexts;
 using CourseLibrary.API.Services;
 using Microsoft.AspNetCore.Builder;
@@ -8,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System;
 
 namespace CourseLibrary.API
 {
@@ -37,7 +39,12 @@ namespace CourseLibrary.API
                 //setupAction.OutputFormatters.Add(new XmlDataContractSerializerOutputFormatter());
 
             }).AddXmlDataContractSerializerFormatters(); // Support XML format for output. If not added will give a 406 (Not Acceptable) error. This is the preferred way for adding formatters.
-             
+
+            // AddAutoMapper() Method allows us to input a set of assemblies.  
+            // It is these assemblies that will automatically get scanned for profiles that contain mapping configurations.
+            // By calling into AppDomain.CurrentDomain.GetAssemblies() we are loading profiles from all assemblies in the current domain.
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
             services.AddScoped<ICourseLibraryRepository, CourseLibraryRepository>();
 
             services.AddDbContext<CourseLibraryContext>(options =>
