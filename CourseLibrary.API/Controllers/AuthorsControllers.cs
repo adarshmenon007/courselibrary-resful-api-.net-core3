@@ -17,7 +17,7 @@ namespace CourseLibrary.API.Controllers
     // 4. Return results.
     [ApiController]
     [Route("api/authors")]
-    public class AuthorsControllers : ControllerBase 
+    public class AuthorsControllers : ControllerBase
     {
         private readonly ICourseLibraryRepository _courseLibraryRepository;
         private readonly IMapper _mapper;
@@ -30,10 +30,10 @@ namespace CourseLibrary.API.Controllers
         }
 
         [HttpGet()]
-        [HttpHead]
-        public ActionResult<IEnumerable<AuthorDto>> GetAuthors()
+        [HttpHead] // Same as GET but returns an object without the response body. Typically used to get information about a resource. 
+        public ActionResult<IEnumerable<AuthorDto>> GetAuthors([FromQuery] string mainCategory)
         {
-            var authorsFromRepo = _courseLibraryRepository.GetAuthors();                    
+            var authorsFromRepo = _courseLibraryRepository.GetAuthors(mainCategory);                    
 
             return Ok(_mapper.Map<IEnumerable<AuthorDto>>(authorsFromRepo));
         }
