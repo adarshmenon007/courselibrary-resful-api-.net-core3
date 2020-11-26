@@ -19,13 +19,15 @@ namespace CourseLibrary.API.Profiles
             // If a property doesn't exist, it will be ignored.
             // .ForMemeber() method is used for projection.
             // Projection transforms the source to the destination beyond flattening the object.
-            CreateMap<Entities.Author, Model.AuthorDto>()
+            CreateMap<Entities.Author, Models.AuthorDto>()
                 .ForMember(
                 dest => dest.Name,
                 opt => opt.MapFrom(src => $"{src.FirstName}{src.LastName}"))
                 .ForMember(
                 dest => dest.Age,
                 opt => opt.MapFrom(src => src.DateOfBirth.GetCurrentAge()));
+
+            CreateMap<Models.AuthorForCreationDto, Entities.Author>();
 
         }
     }

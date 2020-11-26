@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CourseLibrary.API.Model
+namespace CourseLibrary.API.Models
 {
     public class CourseDto
     {

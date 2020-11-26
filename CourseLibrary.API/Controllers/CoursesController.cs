@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using CourseLibrary.API.Model;
+using CourseLibrary.API.Models;
 using CourseLibrary.API.Services;
 using Microsoft.AspNetCore.Mvc;
 using System;

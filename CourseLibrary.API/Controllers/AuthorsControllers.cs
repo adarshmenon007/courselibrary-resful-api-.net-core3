@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using CourseLibrary.API.Helpers;
-using CourseLibrary.API.Model;
+using CourseLibrary.API.Models;
 using CourseLibrary.API.ResourceParameters;
 using CourseLibrary.API.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -39,7 +39,7 @@ namespace CourseLibrary.API.Controllers
             return Ok(_mapper.Map<IEnumerable<AuthorDto>>(authorsFromRepo));
         }
 
-        [HttpGet("{authorId}")]
+        [HttpGet("{authorId}", Name = "GetAuthor")]
         public IActionResult GetAuthor(Guid authorId)
         {
             var authorFromRepo = _courseLibraryRepository.GetAuthor(authorId);
@@ -51,5 +51,20 @@ namespace CourseLibrary.API.Controllers
 
             return Ok(_mapper.Map<AuthorDto>(authorFromRepo));
         }
+
+        [HttpPost]
+        public ActionResult<AuthorDto> CreateAuthor(AuthorForCreationDto author)
+        {
+            // Checking if the input parameter is null is done by the [ApiController] attribute.
+            var authorEntity = _mapper.Map<Entities.Author>(author); // Add it to the repository
+            _courseLibraryRepository.AddAuthor(authorEntity);
+            _courseLibraryRepository.Save();
+
+            var authorToReturn = _mapper.Map<AuthorDto>(authorEntity);// AuthorEntity to AuthorDto because we need to return an object of type AuthorDto.
+
+            // CreatedAtRoute() helper method will allow to send a 201 Created Response with a location header for a successful post
+            return CreatedAtRoute("GetAuthor", new { authorId = authorToReturn.Id }, authorToReturn);
+
+        }        
     }
 }
