@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using CourseLibrary.API.Helpers;
 using CourseLibrary.API.Model;
+using CourseLibrary.API.ResourceParameters;
 using CourseLibrary.API.Services;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -31,9 +32,9 @@ namespace CourseLibrary.API.Controllers
 
         [HttpGet()]
         [HttpHead] // Same as GET but returns an object without the response body. Typically used to get information about a resource. 
-        public ActionResult<IEnumerable<AuthorDto>> GetAuthors([FromQuery] string mainCategory, string searchQuery)
+        public ActionResult<IEnumerable<AuthorDto>> GetAuthors([FromQuery] AuthorsResourceParameters authorsResourceParameters)
         {
-            var authorsFromRepo = _courseLibraryRepository.GetAuthors(mainCategory, searchQuery);                    
+            var authorsFromRepo = _courseLibraryRepository.GetAuthors(authorsResourceParameters);                    
 
             return Ok(_mapper.Map<IEnumerable<AuthorDto>>(authorsFromRepo));
         }
