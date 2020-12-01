@@ -7,15 +7,18 @@ using System.Threading.Tasks;
 
 namespace CourseLibrary.API.Models
 {
-    [CourseTitleMustBeDifferentFromDescription]
+    [CourseTitleMustBeDifferentFromDescription (ErrorMessage = "Title must be different from description.")]
     public class CourseForCreationDto // : IValidatableObject // implementing this interface provides a way for an object to be invalidated in any way we want.
     {
-        [Required]
-        [MaxLength(100)]
+        [Required (ErrorMessage = "You should fill out a title.")]
+        [MaxLength(100, ErrorMessage = "The title shouldn't have more than 100 characters.")]
         public string Title { get; set; }
 
-        [MaxLength(1500)]
+        [MaxLength(1500, ErrorMessage = "The description shouldn't have more than 1500 characters.")]
         public string Description { get; set; }
+
+        // Custom attributes are executed before the Validate method is called, and that can come in handy for property level validation.
+        // If property level validation fails, class level validation will not occur, even when using custom attributes.
 
         //public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         //{
