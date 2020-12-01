@@ -7,27 +7,28 @@ using System.Threading.Tasks;
 
 namespace CourseLibrary.API.Models
 {
-    [CourseTitleMustBeDifferentFromDescription (ErrorMessage = "Title must be different from description.")]
-    public class CourseForCreationDto // : IValidatableObject // implementing this interface provides a way for an object to be invalidated in any way we want.
+    // [CourseTitleMustBeDifferentFromDescription (ErrorMessage = "Title must be different from description.")]
+    public class CourseForCreationDto : CourseForManipulationDto // : IValidatableObject // implementing this interface provides a way for an object to be invalidated in any way we want.
     {
-        [Required (ErrorMessage = "You should fill out a title.")]
-        [MaxLength(100, ErrorMessage = "The title shouldn't have more than 100 characters.")]
-        public string Title { get; set; }
+        //[Required (ErrorMessage = "You should fill out a title.")]
+        //[MaxLength(100, ErrorMessage = "The title shouldn't have more than 100 characters.")]
+        //public string Title { get; set; }
 
-        [MaxLength(1500, ErrorMessage = "The description shouldn't have more than 1500 characters.")]
-        public string Description { get; set; }
+        //[MaxLength(1500, ErrorMessage = "The description shouldn't have more than 1500 characters.")]
+        //public string Description { get; set; }
 
-        // Custom attributes are executed before the Validate method is called, and that can come in handy for property level validation.
-        // If property level validation fails, class level validation will not occur, even when using custom attributes.
+        //// Custom attributes are executed before the Validate method is called, and that can come in handy for property level validation.
+        //// If property level validation fails, class level validation will not occur, even when using custom attributes.
 
-        //public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
-        //{
-        //    if (Title == Description)
-        //    {
-        //        // yield return will make sure the validation result is immediately returned after which the code execution will continue. 
-        //        // ValidationResult is an object that is used to provide error messages and relay the property's member or model names.
-        //        yield return new ValidationResult("The provided description should be different from the title.", new[] {"CourseForCreationDto"});
-        //    }
-        //}
+        ////public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        ////{
+        ////    if (Title == Description)
+        ////    {
+        ////        // yield return will make sure the validation result is immediately returned after which the code execution will continue. 
+        ////        // ValidationResult is an object that is used to provide error messages and relay the property's member or model names.
+        ////        yield return new ValidationResult("The provided description should be different from the title.", new[] {"CourseForCreationDto"});
+        ////    }
+        ////}
+        
     }
 }
